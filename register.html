@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+.container {
+    padding: 90px;
+}
+.container1 {
+    padding: 35px;
+}
+</style>
+<head>
+	<meta charset="UTF-8">
+	<title>Register Document</title>
+	<link href="./css/bootstrap.min.css" rel="stylesheet">
+	<script src="./js/jquery.min.js"></script>
+	<script src="./js/bootstrap.min.js"></script>
+</head>
+<body>
+	<!-- form -->
+<div class="container">
+<div class="container1" style="border:1px solid #ccccb3">
+<form class="relevant">
+<div class="row">
+    <div>
+    <form role="form">
+      <h4>Sign up for free</h4>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+                        <input type="text" name="first_name" id="inputFirstName" placeholder="First Name*" class="form-control input-lg"  tabindex="1" required>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <input type="text" name="last_name" id="last_name" class="form-control input-lg" id="inputLastName" placeholder="Last Name*" tabindex="2" required>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <input type="email" name="email" id="inputEmail" placeholder="Email Address*" class="form-control input-lg"  tabindex="3" required>
+      </div>
+      <div class="form-group">
+        <input type="text" id="inputPassword" placeholder="Password*" class="form-control input-lg"  tabindex="4" required>
+      </div>
+      <div class="form-group">
+        <div class="form-group"><button type="submit" class="btn btn-primary pull-right">Sign up</button></div>
+      </div>
+    </form>
+  </div>
+</div>
+</div>
+</form>
+</div>
+</div>
+<!-- modal -->
+<div id="saveModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Confirmation</h4>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to sign-up with the following info?</p>
+        <div class="userInput"></div>
+
+        <script type="text/javascript">
+      $('#saveModal.userInput').emty();
+      $('#saveModal.userInput').append(
+        $('<p></p>').html('<strong>Name :</strong>'+$('#inputFirstName').val()+''+'<strong>Email Address :</strong>'+$('#inputEmail').val()));
+      </script>
+      
+      </div>      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary btn-login">Sign-up!</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- script -->
+<script type="text/javascript">
+  // load script when document is ready (all resources loaded)
+  $(document).ready(function() {
+    // global input variable
+    var input = {};
+ 
+    // on form submit
+    $('form').submit(function(e) {
+      e.preventDefault();
+ 
+      var $this = $(this);
+      // serialize form, for form submission
+      input = $this.serialize();
+ 
+      // fill in user input on modal box (todo)
+      
+      // show save modal (tod)
+    });
+ 
+    // on btn-login click
+    $('.btn-login').click(function(e) {
+      e.preventDefault();
+      // send ajax request (todo)
+      $.ajax({
+        method: "POST",
+        url: [url],
+        data: input
+      })
+      .done(function( msg ) {
+        if (msg == 'OK') {
+          // show success msg (todo)
+ 
+          // reset form (todo)
+ 
+          // hide save modal (todo)
+        }
+      });
+      
+    });
+  });
+</script>
+
+</body>
+</html>
