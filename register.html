@@ -9,25 +9,27 @@
 }
 </style>
 <head>
-	<meta charset="UTF-8">
-	<title>Register Document</title>
-	<link href="./css/bootstrap.min.css" rel="stylesheet">
-	<script src="./js/jquery.min.js"></script>
-	<script src="./js/bootstrap.min.js"></script>
+  <meta charset="UTF-8">
+  <title>Register Document</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<!-- form -->
+  <!-- form -->
 <div class="container">
 <div class="container1" style="border:1px solid #ccccb3">
 <form class="relevant">
 <div class="row">
     <div>
+      <div id="successMsg" class="alert alert-success hide" role="alert">Registration Successful!</div>
     <form role="form">
+      <input type="hidden" id="inputID" value="12003453">
       <h4>Sign up for free</h4>
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
-                        <input type="text" name="first_name" id="inputFirstName" placeholder="First Name*" class="form-control input-lg"  tabindex="1" required>
+            <input type="text" name="first_name" id="inputFirstName" placeholder="First Name*" class="form-control input-lg"  tabindex="1" required>
           </div>
         </div>
         <div class="col-md-6">
@@ -52,7 +54,6 @@
 </form>
 </div>
 </div>
-<!-- modal -->
 <div id="saveModal" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -63,14 +64,7 @@
       <div class="modal-body">
         <p>Are you sure you want to sign-up with the following info?</p>
         <div class="userInput"></div>
-
-        <script type="text/javascript">
-      $('#saveModal.userInput').emty();
-      $('#saveModal.userInput').append(
-        $('<p></p>').html('<strong>Name :</strong>'+$('#inputFirstName').val()+''+'<strong>Email Address :</strong>'+$('#inputEmail').val()));
-      </script>
-      
-      </div>      
+      </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary btn-login">Sign-up!</button>
@@ -78,42 +72,40 @@
     </div>
   </div>
 </div>
-<!-- script -->
+
 <script type="text/javascript">
-  // load script when document is ready (all resources loaded)
   $(document).ready(function() {
-    // global input variable
     var input = {};
- 
-    // on form submit
     $('form').submit(function(e) {
       e.preventDefault();
- 
       var $this = $(this);
-      // serialize form, for form submission
       input = $this.serialize();
- 
-      // fill in user input on modal box (todo)
-      
-      // show save modal (tod)
+      console.log(input);
+      // fill in user input
+      $('#saveModal .userInput').empty();
+      $('#saveModal .userInput').append(
+        $('<p></p>').html('<strong>Name: </strong>'+ $('#inputFirstName').val() +' '+ $('#inputLastName').val())
+      );
+      $('#saveModal .userInput').append(
+        $('<p></p>').html('<strong>Email: </strong>'+ $('#inputEmail').val())
+      );
+      $('#saveModal').modal('show');
     });
- 
-    // on btn-login click
     $('.btn-login').click(function(e) {
       e.preventDefault();
-      // send ajax request (todo)
+      // send ajax request
       $.ajax({
         method: "POST",
-        url: [url],
+        url: "http://tolitsdelizo.info/st-activities/jquery/register.php",
         data: input
       })
       .done(function( msg ) {
         if (msg == 'OK') {
-          // show success msg (todo)
- 
-          // reset form (todo)
- 
-          // hide save modal (todo)
+          // show success msg
+          $('#successMsg').removeClass('hide').show();
+          // reset form
+          $('input[type=text], input[type=email], input[type=password]', 'form').val(null);
+          $('#saveModal').modal('hide');          
         }
       });
       
